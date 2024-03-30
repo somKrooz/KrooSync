@@ -57,6 +57,7 @@ def MTX(json,path):
             remap.parm('outhigh').set(0.5)
             remap.setInput(0,Displacement)
             dispMtx.setInput(0,remap)
+            
     collect2 = MainPath.createNode("collect",f"{name}_OUT_" ,force_valid_node_name = True)
     collect2.setInput(0,subnet,subnet.outputIndex('surface'))
     collect2.setInput(1,subnet,subnet.outputIndex('displacement'))

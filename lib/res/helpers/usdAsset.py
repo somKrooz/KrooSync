@@ -1,8 +1,6 @@
 import hou
 from .mtx import MTX
 
-
-
 def add_underscores(string):
     return string.replace(' ', '_')
 
@@ -42,6 +40,8 @@ def USD(json):
     asignmat.setInput(0,merge)
     null = base.createNode("null") ##Assign
     null.setInput(0,asignmat)
+
+    null.setDisplayFlag(True)
 
     geo.layoutChildren()
     base.layoutChildren()

@@ -15,8 +15,8 @@ class Sync(QtWidgets.QDialog):
         self.connection()
 
     def configure_dialog(self):
-        width = 450
-        height = 400
+        width = 250
+        height = 300
 
         self.setWindowTitle("KrooSync")
         self.setMinimumWidth(width) 

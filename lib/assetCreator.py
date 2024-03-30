@@ -1,9 +1,6 @@
 import hou
 from abc import abstractmethod , ABCMeta
-from .res import material
-from .res import asset
-from .res import Usd
-
+from .res.asset import mtlX ,Ast ,USDAsset
 class IMetaData(metaclass=ABCMeta):
 
     @abstractmethod
@@ -16,7 +13,7 @@ class Material(IMetaData):
         self.json = json
         
     def Generator(self):
-       material.mtlX(self.json)
+       mtlX(self.json)
 
 class Asset(IMetaData):
     def __init__(self,json):
@@ -24,7 +21,7 @@ class Asset(IMetaData):
         self.json = json
 
     def Generator(self):
-        asset.Ast(self.json)
+        Ast(self.json)
 
 class USD(IMetaData):
     def __init__(self,json):
@@ -32,7 +29,7 @@ class USD(IMetaData):
         self.json = json
 
     def Generator(self):
-        Usd.USDAsset(self.json)
+        USDAsset(self.json)
 
         
         
