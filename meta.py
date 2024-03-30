@@ -15,7 +15,10 @@ class AssetFactory:
             state = data["USDstate"]
 
         if state:
-            assetCreator.USD(JSON).Generator()
+            if JSON[0]['type'] == '3d':
+                assetCreator.USD(JSON).Generator()
+            else:
+                print("Import Failed : Only 3d assets are supported at the moment....")
         else:
             if JSON[0]['type'] == 'surface':
                 assetCreator.Material(JSON).Generator()
