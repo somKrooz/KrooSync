@@ -1,18 +1,27 @@
 from .lib import assetCreator
+import hou
+import os
+import json
+
 
 class AssetFactory:
-    
+
     @staticmethod
-    def GenerateAsset(json, state):
+    def GenerateAsset(JSON):
+        home = hou.homeHoudiniDirectory()
+        file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
+        with open(file_path, "r") as f:
+            data = json.load(f)
+            state = data["USDstate"]
 
         if state:
-            pass
+            assetCreator.USD(JSON).Generator()
         else:
-            if json[0]['type'] == 'surface':
-                assetCreator.Material(json).Generator()
+            if JSON[0]['type'] == 'surface':
+                assetCreator.Material(JSON).Generator()
 
-            if json[0]['type'] == '3d':
-                assetCreator.Asset(json).Generator()
+            if JSON[0]['type'] == '3d':
+                assetCreator.Asset(JSON).Generator()
                 
-            if json[0]['type'] == '3dplant':
+            if JSON[0]['type'] == '3dplant':
                 return "yet to be implemented"

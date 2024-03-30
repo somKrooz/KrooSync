@@ -2,6 +2,7 @@ import hou
 from abc import abstractmethod , ABCMeta
 from .res import material
 from .res import asset
+from .res import Usd
 
 class IMetaData(metaclass=ABCMeta):
 
@@ -31,7 +32,7 @@ class USD(IMetaData):
         self.json = json
 
     def Generator(self):
-        pass ## add Usd Asset logic 
+        Usd.USDAsset(self.json)
 
         
         

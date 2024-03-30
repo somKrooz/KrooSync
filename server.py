@@ -35,12 +35,7 @@ class MyServer:
                     break
                 total_data += data
             json_data = json.loads(total_data.decode('ascii'))
-            home = hou.homeHoudiniDirectory()
-            file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
-            with open(file_path,"r") as f:
-                data = json.load(f)
-
-            AssetFactory.GenerateAsset(json_data, data["USDstate"])
+            AssetFactory.GenerateAsset(json_data)
             
 
     def stop(self):

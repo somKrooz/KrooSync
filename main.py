@@ -60,6 +60,12 @@ class Sync(QtWidgets.QDialog):
         t.start() 
 
     def closeEvent(self, event):
+        state = {"USDstate": False}
+        home = hou.homeHoudiniDirectory()
+        file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
+        with open(file_path, 'w') as f:
+            json.dump(state, f)
+
         if self.server:
             self.server.stop()
         event.accept()
