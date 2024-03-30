@@ -1,8 +1,8 @@
 import hou
 from abc import abstractmethod , ABCMeta
 from .res.asset import mtlX ,Ast ,USDAsset
-class IMetaData(metaclass=ABCMeta):
 
+class IMetaData(metaclass=ABCMeta):
     @abstractmethod
     def Generator():
         pass

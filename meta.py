@@ -3,7 +3,6 @@ import hou
 import os
 import json
 
-
 class AssetFactory:
 
     @staticmethod
