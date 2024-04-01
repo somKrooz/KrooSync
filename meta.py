@@ -26,4 +26,4 @@ class AssetFactory:
                 assetCreator.Asset(JSON).Generator()
                 
             if JSON[0]['type'] == '3dplant':
-                return "yet to be implemented"
+                assetCreator.Plants(JSON).Generator()

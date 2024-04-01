@@ -1,7 +1,6 @@
 import hou
 
 def MTX(json,path):
-
     name = json[0]["name"]
     MainPath = hou.node(str(path))
     subnet = MainPath.createNode("subnet",name ,force_valid_node_name = True)

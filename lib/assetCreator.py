@@ -1,6 +1,6 @@
 import hou
 from abc import abstractmethod , ABCMeta
-from .res.asset import mtlX ,Ast ,USDAsset
+from .res.asset import mtlX ,Ast ,USDAsset ,Foliage
 
 class IMetaData(metaclass=ABCMeta):
     @abstractmethod
@@ -30,6 +30,14 @@ class USD(IMetaData):
 
     def Generator(self):
         USDAsset(self.json)
+
+class Plants(IMetaData):
+    def __init__(self,json):
+        self.name = "Foliage"
+        self.json = json
+    
+    def Generator(self):
+        Foliage(self.json)
 
         
         

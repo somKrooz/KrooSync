@@ -1,6 +1,6 @@
 import threading
 import hou
-from PySide2 import QtCore, QtWidgets, QtGui 
+from PySide2 import QtCore, QtWidgets 
 from .server import MyServer
 import json
 import os
