@@ -13,6 +13,7 @@ class MyServer:
         self.is_running = True
 
     def start(self):
+        print("server is running baby!")
         self.socket.bind((self.host, self.port))
         self.socket.listen(5)
         pass
@@ -39,6 +40,7 @@ class MyServer:
             
 
     def stop(self):
+        print("We are stopped")
         self.is_running = False
         self.socket.close()
 

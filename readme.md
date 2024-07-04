@@ -1,1 +1,9 @@
-KrooSync is a plugin that Connects with Megascans bridge to modify the the asset import behavior
+## call the plugin like this from houdini python console:
+
+from KrooSync import main as mg
+import importlib
+
+importlib.reload(mg)
+
+view = mg.Sync()
+view.show()

@@ -1,8 +1,8 @@
 import hou
-from .helpers.mtx import MTX
-from .helpers.ast import loadAssets
-from .helpers.usdAsset import USD
-from .helpers.foliage import Foliage
+from .MSimports.mtx import MTX
+from .MSimports.ast import loadAssets
+from .MSimports.usdAsset import USD
+from .MSimports.foliage import Foliage
 
 def Ast(json):
     loadAssets(json)
