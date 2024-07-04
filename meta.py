@@ -4,7 +4,6 @@ import os
 import json
 
 class AssetFactory:
-
     @staticmethod
     def GenerateAsset(JSON):
         home = hou.homeHoudiniDirectory()

@@ -17,7 +17,7 @@ class Sync(QtWidgets.QDialog):
 
     def configure_dialog(self):
         width = 250
-        height = 300
+        height = 200
 
         self.setWindowTitle("KrooSync")
         self.setMinimumWidth(width) 
@@ -27,16 +27,18 @@ class Sync(QtWidgets.QDialog):
         self.setMaximumHeight(height)
 
     def widgets(self):
-        self.checkbox = QtWidgets.QCheckBox('USD', self) 
-        self.matOptions = QtWidgets.QComboBox(self)
-        self.matOptions.addItems(["Megascans", "Convert Material", "Utils"])
+        self.checkbox = QtWidgets.QCheckBox('USD', self)
+        self.Connectbox = QtWidgets.QCheckBox('Connect', self)  
+        # self.matOptions = QtWidgets.QComboBox(self)
+        self.matOptions.addItems(["Megascans"])
         self.matOptions.setCurrentIndex(0)
 
 
     def layout(self):
 
         self.mslyt = QtWidgets.QVBoxLayout(self)   
-        self.mslyt.addWidget(self.matOptions)
+        # self.mslyt.addWidget(self.matOptions)
+        self.mslyt.addWidget(self.Connectbox)  
         self.mslyt.addWidget(self.checkbox)
     
     def handle_hidden(self):
@@ -45,20 +47,18 @@ class Sync(QtWidgets.QDialog):
         with open(file_path, "r") as f:
             data = json.load(f)
 
-        if data["Options"] == "Megascans":
-           self.checkbox.show()
-        else:
-           self.checkbox.hide()
-           
 
     def connection(self):
         self.checkbox.clicked.connect(self.print)
+        self.Connectbox.clicked.connect(self.print)
+        self.Connectbox.clicked.connect(self.Checking_Handleing)
         self.matOptions.currentTextChanged.connect(self.print)
+
 
 
     def print(self):
         state = {"USDstate": self.checkbox.isChecked(),
-                 "Options": self.matOptions.currentText()}
+                 "Checked": self.Connectbox.isChecked()}
 
         home = hou.homeHoudiniDirectory()
         file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
@@ -74,19 +74,51 @@ class Sync(QtWidgets.QDialog):
         
     def showEvent(self, event):
         super(Sync, self).showEvent(event)
-        t = threading.Thread(target=self.Run)
-        t.start() 
+        print("started....")
+        # home = hou.homeHoudiniDirectory()
+        # file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
+        # with open(file_path, "r") as f:
+        #     data = json.load(f)
+        #     state = data["Checked"]
+
+        # if state==True:
+        #     t = threading.Thread(target=self.Run)
+        #     t.start() 
+
+    def Checking_Handleing(self):
+        home = hou.homeHoudiniDirectory()
+        file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
+        with open(file_path, "r") as f:
+            data = json.load(f)
+            state = data["Checked"]
+
+        if state == True:
+            t = threading.Thread(target=self.Run)
+            t.start() 
+        if state == False:
+            if self.server:
+                self.server.stop()
+
+
+
+
 
     def closeEvent(self, event):
         state = {"USDstate": self.checkbox.isChecked(),
-                "Options": self.matOptions.currentText()}
+                "Checked": self.Connectbox.isChecked()}
         
         home = hou.homeHoudiniDirectory()
         file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
         with open(file_path, 'w') as f:
             json.dump(state, f)
-    
 
-        if self.server:
-            self.server.stop()
+        home = hou.homeHoudiniDirectory()
+        file_path = os.path.join(home, "scripts", "python", "KrooSync", "cache.json")
+        with open(file_path, "r") as f:
+            data = json.load(f)
+            state = data["Checked"]
+        print("Ended..")
+        # if state==False:
+        #     if self.server:
+        #         self.server.stop()
         event.accept()
